@@ -3,6 +3,15 @@ defmodule KVServerTest do
   @moduletag :capture_log
 
   setup do
+    current = Application.get_env(:kv, :routing_table)
+
+    Application.put_env(:kv, :routing_table, [
+      {?a..?m, node()},
+      {?n..?z, node()}
+    ])
+  end
+
+  setup do
     Application.stop(:kv)
     :ok = Application.start(:kv)
   end
